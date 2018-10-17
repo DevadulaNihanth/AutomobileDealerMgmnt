@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "WelcomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WelcomePage</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <h2>Login Validation Panel</h2>
+        <p>
+            @if ((int)Session["UserRoleID"] == 1)
+            {
+                <text>
+                    <h2>Login Successful!!!</h2>
+                    <br />
+                    <b>Welcome @Session["UserName"].ToString()</b>
+            <b> You have logged in at @Session["SessionID"]</b>
+                    
+                </text>
+
+            }
+            else if ((int)Session["UserRoleID"] == 2)
+            {
+                <text>
+                    <h2>Login Successful!!!</h2>
+                    <br />
+                    <b>Welcome @Session["UserName"].ToString()</b>
+                </text>
+            }
+            else if (Session["Username"]==null)
+            {
+                <text>
+                    <h2>Invalid Credentials</h2>
+
+
+                </text>
+                Session.Abandon();
+
+               //Response.Redirect("~/Admin/Login");
+            }
+        
+        </p>
+        <br />
+        <br />
+        @if ((int)Session["UserRoleID"] == 1)
+        {<table class="table-bordered table-hover" >
+             <tr>
+                 @Html.ActionLink("Add Product Details", "AddProduct", "Product")
+             </tr> 
+        <tr>
+            @Html.ActionLink("Product Details", "HyundaiList", "Product")
+        </tr>
+        <tr>
+            @Html.ActionLink("Modify Product Details", "HyundaiList", "Product")
+        </tr>
+        <tr>
+            @Html.ActionLink("Delete Product Details", "HyundaiList", "Product")
+        </tr>
+            
+            
+          
+            
+           
+        </table>
+        }
+        @if ((int)Session["UserRoleID"] == 2)
+        {
+
+            <table class="table-bordered table-hover">
+                <tr>
+                    @Html.ActionLink("Product Details", "HyundaiList", "Product")
+                </tr>
+            </table>
+
+        }
+
+    </div>
+</body>
+</html>

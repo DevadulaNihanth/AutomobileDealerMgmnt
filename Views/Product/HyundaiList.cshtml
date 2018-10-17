@@ -1,0 +1,90 @@
+﻿@model IEnumerable<HyundaiAutomobileDealer.Models.usp_view_tbl_hyundai_product_1334712_Result>
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HyundaiList</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" />
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+    </script>
+
+    <script type="text/javascript" charset="utf8">
+        $(document).ready(function () {
+
+            $('#tblProducts').DataTable();
+        });
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "AddProduct")
+    </p>
+    <table class="table table-bordered table-striped " id="tblProducts">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalNumberAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCategoryID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalNumberAvailable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditProduct", new { ProductID = item.ProductID }, new { @class = "btn btn-primary" }) 
+                    @*@Html.ActionLink("Details", "Details", new { ID=item.ProductID })*@ 
+                    @Html.ActionLink("Delete", "DeleteProduct", new { ID = item.ProductID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    <br />
+    <div>
+        @Html.ActionLink("Back to Dashboard", "WelcomePage", "Login")
+    </div>
+</body>
+</html>

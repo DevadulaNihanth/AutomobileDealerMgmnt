@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HyundaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_hyundai_1334712_roles">
+          <Key>
+            <PropertyRef Name="role_code" />
+          </Key>
+          <Property Name="role_code" Type="int" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_login_master">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserRoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_prod_category">
+          <Key>
+            <PropertyRef Name="ProductCategoryID" />
+          </Key>
+          <Property Name="ProductCategoryID" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryName" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_product_1334712">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="40" />
+          <Property Name="ProductCategoryID" Type="int" />
+          <Property Name="UnitPrice" Type="numeric" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="TotalNumberAvailable" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__tbl_hyund__Produ__02DE0F30">
+          <End Role="tbl_hyundai_prod_category" Type="Self.tbl_hyundai_prod_category" Multiplicity="0..1" />
+          <End Role="tbl_hyundai_product_1334712" Type="Self.tbl_hyundai_product_1334712" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_hyundai_prod_category">
+              <PropertyRef Name="ProductCategoryID" />
+            </Principal>
+            <Dependent Role="tbl_hyundai_product_1334712">
+              <PropertyRef Name="ProductCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_login">
+          <End Role="tbl_hyundai_1334712_roles" Type="Self.tbl_hyundai_1334712_roles" Multiplicity="0..1" />
+          <End Role="tbl_hyundai_login_master" Type="Self.tbl_hyundai_login_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_hyundai_1334712_roles">
+              <PropertyRef Name="role_code" />
+            </Principal>
+            <Dependent Role="tbl_hyundai_login_master">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_delete_tbl_hyundai_product_1334712" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_save_tbl_hyundai_product_1334712" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="ProductCategoryID" Type="int" Mode="In" />
+          <Parameter Name="UnitPrice" Type="numeric" Mode="In" />
+          <Parameter Name="TotalNumberAvailable" Type="int" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="ID_out" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_view_tbl_hyundai_product_1334712" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_viewbyid_tbl_hyundai_product_1334712" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HyundaiModelStoreContainer">
+          <EntitySet Name="tbl_hyundai_1334712_roles" EntityType="Self.tbl_hyundai_1334712_roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_hyundai_login_master" EntityType="Self.tbl_hyundai_login_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_hyundai_prod_category" EntityType="Self.tbl_hyundai_prod_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_hyundai_product_1334712" EntityType="Self.tbl_hyundai_product_1334712" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_hyund__Produ__02DE0F30" Association="Self.FK__tbl_hyund__Produ__02DE0F30">
+            <End Role="tbl_hyundai_prod_category" EntitySet="tbl_hyundai_prod_category" />
+            <End Role="tbl_hyundai_product_1334712" EntitySet="tbl_hyundai_product_1334712" />
+          </AssociationSet>
+          <AssociationSet Name="FK_login" Association="Self.FK_login">
+            <End Role="tbl_hyundai_1334712_roles" EntitySet="tbl_hyundai_1334712_roles" />
+            <End Role="tbl_hyundai_login_master" EntitySet="tbl_hyundai_login_master" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HyundaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_hyundai_1334712_roles">
+          <Key>
+            <PropertyRef Name="role_code" />
+          </Key>
+          <Property Name="role_code" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_hyundai_login_master" Relationship="Self.FK_login" FromRole="tbl_hyundai_1334712_roles" ToRole="tbl_hyundai_login_master" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_login_master">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRoleID" Type="Int32" />
+          <NavigationProperty Name="tbl_hyundai_1334712_roles" Relationship="Self.FK_login" FromRole="tbl_hyundai_login_master" ToRole="tbl_hyundai_1334712_roles" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_prod_category">
+          <Key>
+            <PropertyRef Name="ProductCategoryID" />
+          </Key>
+          <Property Name="ProductCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_hyundai_product_1334712" Relationship="Self.FK__tbl_hyund__Produ__44F5EB50" FromRole="tbl_hyundai_prod_category" ToRole="tbl_hyundai_product_1334712" />
+        </EntityType>
+        <EntityType Name="tbl_hyundai_product_1334712">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCategoryID" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="TotalNumberAvailable" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_hyundai_prod_category" Relationship="Self.FK__tbl_hyund__Produ__44F5EB50" FromRole="tbl_hyundai_product_1334712" ToRole="tbl_hyundai_prod_category" />
+        </EntityType>
+        <Association Name="FK_login">
+          <End Role="tbl_hyundai_1334712_roles" Type="Self.tbl_hyundai_1334712_roles" Multiplicity="0..1" />
+          <End Role="tbl_hyundai_login_master" Type="Self.tbl_hyundai_login_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_hyundai_1334712_roles">
+              <PropertyRef Name="role_code" />
+            </Principal>
+            <Dependent Role="tbl_hyundai_login_master">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_hyund__Produ__44F5EB50">
+          <End Role="tbl_hyundai_prod_category" Type="Self.tbl_hyundai_prod_category" Multiplicity="0..1" />
+          <End Role="tbl_hyundai_product_1334712" Type="Self.tbl_hyundai_product_1334712" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_hyundai_prod_category">
+              <PropertyRef Name="ProductCategoryID" />
+            </Principal>
+            <Dependent Role="tbl_hyundai_product_1334712">
+              <PropertyRef Name="ProductCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HyundaiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_hyundai_1334712_roles" EntityType="Self.tbl_hyundai_1334712_roles" />
+          <EntitySet Name="tbl_hyundai_login_master" EntityType="Self.tbl_hyundai_login_master" />
+          <EntitySet Name="tbl_hyundai_prod_category" EntityType="Self.tbl_hyundai_prod_category" />
+          <EntitySet Name="tbl_hyundai_product_1334712" EntityType="Self.tbl_hyundai_product_1334712" />
+          <AssociationSet Name="FK_login" Association="Self.FK_login">
+            <End Role="tbl_hyundai_1334712_roles" EntitySet="tbl_hyundai_1334712_roles" />
+            <End Role="tbl_hyundai_login_master" EntitySet="tbl_hyundai_login_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_hyund__Produ__44F5EB50" Association="Self.FK__tbl_hyund__Produ__44F5EB50">
+            <End Role="tbl_hyundai_prod_category" EntitySet="tbl_hyundai_prod_category" />
+            <End Role="tbl_hyundai_product_1334712" EntitySet="tbl_hyundai_product_1334712" />
+          </AssociationSet>
+          <FunctionImport Name="usp_delete_tbl_hyundai_product_1334712">
+          <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_save_tbl_hyundai_product_1334712">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="UnitPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="TotalNumberAvailable" Mode="In" Type="Int32" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="ID_out" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_view_tbl_hyundai_product_1334712" ReturnType="Collection(HyundaiModel.usp_view_tbl_hyundai_product_1334712_Result)" />
+          <FunctionImport Name="usp_viewbyid_tbl_hyundai_product_1334712" ReturnType="Collection(HyundaiModel.usp_viewbyid_tbl_hyundai_product_1334712_Result)">
+          <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_view_tbl_hyundai_product_1334712_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="ProductCategoryID" Nullable="true" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="TotalNumberAvailable" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_viewbyid_tbl_hyundai_product_1334712_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="ProductCategoryID" Nullable="true" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="TotalNumberAvailable" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HyundaiModelStoreContainer" CdmEntityContainer="HyundaiEntities">
+          <EntitySetMapping Name="tbl_hyundai_1334712_roles">
+            <EntityTypeMapping TypeName="HyundaiModel.tbl_hyundai_1334712_roles">
+              <MappingFragment StoreEntitySet="tbl_hyundai_1334712_roles">
+                <ScalarProperty Name="role_code" ColumnName="role_code" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_hyundai_login_master">
+            <EntityTypeMapping TypeName="HyundaiModel.tbl_hyundai_login_master">
+              <MappingFragment StoreEntitySet="tbl_hyundai_login_master">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_hyundai_prod_category">
+            <EntityTypeMapping TypeName="HyundaiModel.tbl_hyundai_prod_category">
+              <MappingFragment StoreEntitySet="tbl_hyundai_prod_category">
+                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="ProductCategoryName" ColumnName="ProductCategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_hyundai_product_1334712">
+            <EntityTypeMapping TypeName="HyundaiModel.tbl_hyundai_product_1334712">
+              <MappingFragment StoreEntitySet="tbl_hyundai_product_1334712">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TotalNumberAvailable" ColumnName="TotalNumberAvailable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_delete_tbl_hyundai_product_1334712" FunctionName="HyundaiModel.Store.usp_delete_tbl_hyundai_product_1334712" />
+          <FunctionImportMapping FunctionImportName="usp_save_tbl_hyundai_product_1334712" FunctionName="HyundaiModel.Store.usp_save_tbl_hyundai_product_1334712" />
+          <FunctionImportMapping FunctionImportName="usp_view_tbl_hyundai_product_1334712" FunctionName="HyundaiModel.Store.usp_view_tbl_hyundai_product_1334712">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HyundaiModel.usp_view_tbl_hyundai_product_1334712_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TotalNumberAvailable" ColumnName="TotalNumberAvailable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_viewbyid_tbl_hyundai_product_1334712" FunctionName="HyundaiModel.Store.usp_viewbyid_tbl_hyundai_product_1334712">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HyundaiModel.usp_viewbyid_tbl_hyundai_product_1334712_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TotalNumberAvailable" ColumnName="TotalNumberAvailable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
